@@ -6,8 +6,8 @@ import './App.css';
 class App extends Component {
   render() {
     return (
-      <div>
-        <h2>Task List</h2>
+      <div className="task-list-container">
+        <h2 className="task-list-title">Task List</h2>
         <List />
       </div>
     );
