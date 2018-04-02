@@ -5,7 +5,12 @@ class Task extends React.Component {
     super(props);
   }
   render() {
-    return (<li onClick={this.props.onClick}>{this.props.name}</li>);
+    let classes = ["task-item"];
+    if (this.props.completed === true) {
+      classes.push("completed");
+    }
+    let class_list = classes.join(" ");
+    return (<li className={class_list} onClick={this.props.onClick}>{this.props.name}</li>);
   }
 }
 

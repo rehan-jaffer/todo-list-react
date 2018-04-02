@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Task from './task.jsx';
+import { Row, Grid, Col } from 'react-bootstrap';
 
 class List extends React.Component {
   constructor(props) {
@@ -10,9 +11,16 @@ class List extends React.Component {
   }
   task_list() {
     const list_items = Object.entries(this.state.tasks).map((task) =>
-      <Task name={task[0]} onClick={() => this.remove_task(task[0])} />
+      <Task completed={task[1]} name={task[0]} onClick={() => this.update_task(task[0])} />
     );
     return (<ul>{list_items}</ul>)
+  }
+  update_task(name) {
+    this.setState((prevState, props) => {
+      let next_state = prevState.tasks;
+      next_state[name] = !prevState.tasks[name];
+      return {tasks: next_state};
+    });
   }
   remove_task(name) {
     this.setState((prevState, props) => {
@@ -29,18 +37,21 @@ class List extends React.Component {
     let new_name = document.querySelector(".new_task").value;
     this.setState((prevState, props) => {
       let next_state = prevState.tasks;
-      next_state[new_name] = true;
-      console.log(next_state);
+      next_state[new_name] = false;
       return {tasks: next_state};
     });
     document.querySelector(".new_task").value = "";
   }
   render(props) {
-    return (<div class="todo-list">
-    {this.task_list()}
-    <input className="new_task" />
-    <button onClick={() => this.add_task('lol')} className="btn btn-primary">Add</button>
-    </div>)
+    return (<Grid classname="todo-list">
+    <Row>
+      <Col xs={12} md={8}>
+      {this.task_list()}
+      <input className="new_task" />
+      <button onClick={() => this.add_task('lol')} className="btn btn-primary">Add</button>
+      </Col>
+    </Row>
+    </Grid>)
   }
 }
 
