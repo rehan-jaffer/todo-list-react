@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Task from './task.jsx';
 
 class List extends React.Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class List extends React.Component {
   }
   task_list() {
     const list_items = Object.entries(this.state.tasks).map((task) =>
-      <li class='task-item'><a onClick={() => this.remove_task(task[0])}>{task[0]}</a></li>
+      <Task name={task[0]} onClick={() => this.remove_task(task[0])} />
     );
     return (<ul>{list_items}</ul>)
   }
@@ -29,6 +30,7 @@ class List extends React.Component {
     this.setState((prevState, props) => {
       let next_state = prevState.tasks;
       next_state[new_name] = true;
+      console.log(next_state);
       return {tasks: next_state};
     });
     document.querySelector(".new_task").value = "";
